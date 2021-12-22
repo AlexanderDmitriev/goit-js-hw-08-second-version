@@ -60,8 +60,11 @@ const formInputHandler = (event) => {
 
 const submitHandler = (event) => {
     event.preventDefault();
-    console.log("inputData: " + previousFormData.inputData);
-    console.log("messageData: " + previousFormData.messageData);
+    if (previousFormData) {
+        console.log("inputData: " + previousFormData.inputData);
+        console.log("messageData: " + previousFormData.messageData);
+    }
+    
     event.currentTarget.reset();
  }
 
