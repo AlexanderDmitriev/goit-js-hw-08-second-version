@@ -24,6 +24,7 @@
     4. Сделай так, чтобы хранилище обновлялось не чаще чем раз в 500 миллисекунд. 
 Для этого добавь в проект и используй библиотеку lodash.throttle.
  */
+import throttle from "lodash.throttle";
 
 const refs = {
     emailInput: document.querySelector('.feedback-form').firstElementChild.children[0],
@@ -35,16 +36,18 @@ const refs = {
 const formData = {
     inputData:"",
     messageData:""
-}
+};
 let previousFormData;
 
  try {
     previousFormData = JSON.parse(localStorage.getItem("feedback-form-state"));
-    //console.log(previousFormData);
+
 } catch (error) {
     console.log(error);
+    previousFormData.inputData="";
+    previousFormData.messageData="";
 }
- if ((previousFormData.inputData)&&(previousFormData.messageData)) {
+    if (previousFormData) {
      refs.emailInput.value = previousFormData.inputData;
      refs.messageInput.value = previousFormData.messageData;
  } 
@@ -62,6 +65,6 @@ const submitHandler = (event) => {
     event.currentTarget.reset();
  }
 
-refs.formInput.addEventListener('input', formInputHandler);
+refs.formInput.addEventListener('input', throttle(formInputHandler, 500));
 refs.formInput.addEventListener("submit", submitHandler);
 
