@@ -37,15 +37,17 @@ const formData = {
     inputData:"",
     messageData:""
 };
-let previousFormData;
+let previousFormData = {
+    inputData:"",
+    messageData:""
+};
 
  try {
     previousFormData = JSON.parse(localStorage.getItem("feedback-form-state"));
 
 } catch (error) {
     console.log(error);
-    previousFormData.inputData="";
-    previousFormData.messageData="";
+
 }
     if (previousFormData) {
      refs.emailInput.value = previousFormData.inputData;
@@ -63,6 +65,7 @@ const submitHandler = (event) => {
     if (previousFormData) {
         console.log("inputData: " + previousFormData.inputData);
         console.log("messageData: " + previousFormData.messageData);
+        //console.log(previousFormData);
     }
     
     event.currentTarget.reset();
